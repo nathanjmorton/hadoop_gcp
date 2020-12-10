@@ -134,6 +134,40 @@ AND t.TBL_NAME = 'transactions2';
 hdfs dfs -ls /
 hdfs dfs -ls -R /user
 
-``
+```
+
+```
+<!-- - mkdir.py                                       
+from snakebite.client import Client
+client = Client('localhost', 10000)
+for p in Client.mkdir(client, ['/foo/bar'], create_parent=True)
+  print p -->
+```
 
 
+- initialize spark
+```
+pyspark
+```
+- spark code
+```
+data = [1,2,3,4,5,6]
+rdd = sc.parallelize(data)
+map_result = rdd.map(lambda x: x * 2)
+map_result.collect()
+```
+
+- test_pig.pig file (uses blah blah input.txt input and outputs to output directory via Hadoop system)
+```
+%default INPUT 'input.txt';
+%default OUTPUT 'output';
+records = LOAD '$INPUT';
+terms = FOREACH records GENERATE FLATTEN(TOKENIZE((chararray) $0)) AS word;
+grouped_terms = GROUP terms BY word;
+word_counts = FOREACH grouped_terms GENERATE COUNT(terms), group;
+STORE word_counts INTO '$OUTPUT';
+```
+- run pig script
+```
+pig -x local test_pig.pig
+```

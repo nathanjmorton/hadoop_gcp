@@ -181,5 +181,5 @@ map.collect()
 data = [1,2,3,4,5,6]
 rdd = sc.parallelize(data)
 flat_map = rdd.flatMap(lambda x: [x, pow(x,2)])
-map.collect()
+flat_map.collect()
 ```

@@ -135,7 +135,11 @@ hdfs dfs -ls /
 hdfs dfs -ls -R /user
 
 ```
-
+ - submit a spark job for python with spark-submit
+```
+spark-submit text_search.py gold
+```
+- run python in HDFS 
 ```
 <!-- - mkdir.py                                       
 from snakebite.client import Client

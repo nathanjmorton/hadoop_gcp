@@ -42,7 +42,7 @@ gsutil cp gs://hive-solution/part-00000.parquet \
 gs://${HIVE_DATA_BUCKET}/datasets/transactions/part-00000.parquet 
 ```
 
-- submit hive job
+- submit hive job create table
 ```
 gcloud dataproc jobs submit hive \
   --cluster ${CLUSTER_NAME} \
@@ -51,7 +51,7 @@ gcloud dataproc jobs submit hive \
   --region $REGION 
 ```
 
-- submit hive job
+- submit hive job query table
 ```
 gcloud dataproc jobs submit hive \
 --cluster $CLUSTER_NAME \
@@ -60,18 +60,18 @@ gcloud dataproc jobs submit hive \
 --region $REGION 
 ```
 
-- ssh into master node to run python
+- query table from python
+  - ssh into master node in cluster
 ```
 gcloud compute ssh ${INSTANCE_NAME}-m 
 (or use ssh within console)
 ```
-- run python with pyspark on master node
-  - initialize
+- initialize pyspark
 ```
 pyspark
 ```
 
-- run code
+- query from pyspark on master node
 ```
 from pyspark.sql import HiveContext
 hc = HiveContext(sc)
@@ -85,8 +85,8 @@ hc.sql("""
 """).show() 
 ```
 
-- use beeline
-  - ssh into master
+- query from beeline on master node
+  - start another ssh session or logout / login
 ```
 beeline -u "jdbc:hive2://localhost:10000"
 ```

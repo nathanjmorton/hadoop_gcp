@@ -1,5 +1,7 @@
 # Hadoop on GCP with Python
 [GCP Hadoop Dataproc Example](https://github.com/GoogleCloudDataproc/initialization-actions/tree/master/cloud-sql-proxy)
+
+### Setup environment with Dataproc
 - set variables
 ```
 export REGION=us-central1
@@ -36,7 +38,20 @@ gcloud dataproc clusters create ${CLUSTER_NAME} \
     --region $REGION 
 ```
 
-- copy file
+### Test Dataproc
+
+- copy pyspark file to bucket to test 
+```
+gsutil cp gs://goog-dataproc-initialization-actions-${REGION}/cloud-sql-proxy/pyspark_metastore_test.py gs://${HIVE_DATA_BUCKET}/pyspark_metastore_test.py 
+
+```
+- submit pyspark to dataproc for query to test
+```
+gcloud dataproc jobs submit pyspark --cluster $CLUSTER_NAME gs://${HIVE_DATA_BUCKET}/pyspark_metastore_test.py --region $REGION
+```
+
+### Demo Transactions
+- copy file for transactions
 ```
 gsutil cp gs://hive-solution/part-00000.parquet \
 gs://${HIVE_DATA_BUCKET}/datasets/transactions/part-00000.parquet 
@@ -113,3 +128,6 @@ FROM SDS s, TBLS t
 WHERE s.SD_ID = t.SD_ID
 AND t.TBL_NAME = 'transactions2';
 ```
+
+
+

@@ -129,5 +129,11 @@ WHERE s.SD_ID = t.SD_ID
 AND t.TBL_NAME = 'transactions2';
 ```
 
+### Log into master node to run scripts
+```
+hdfs dfs -ls /
+hdfs dfs -ls -R /user
+
+``
 
 

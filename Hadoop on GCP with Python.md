@@ -97,4 +97,15 @@ FROM transactions2
 LIMIT 10;
 ```
 
-
+- connect to mysql to check metastore
+  - blank password (hit enter)
+```
+gcloud sql connect $INSTANCE_NAME --user=root
+USE hive_metastore;
+SELECT DB_LOCATION_URI FROM DBS;
+SELECT TBL_NAME, TBL_TYPE FROM TBLS;
+SELECT COLUMN_NAME, TYPE_NAME
+FROM COLUMNS_V2 c, TBLS t
+WHERE c.CD_ID = t.SD_ID
+AND t.TBL_NAME = 'transactions2';
+```

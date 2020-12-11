@@ -191,3 +191,27 @@ rdd = sc.parallelize(data)
 rdd.reduce(lambda a, b: a * b)
 rdd.take(2)
 ```
+
+- AWS EMR (Python map reduce for streaming)
+```
+pip install mrjob
+```
+- word_count.py
+```
+from mrjob.job import MRJob
+
+class MRWordCount(MRJob)
+  def mapper(self, _, line):
+    for word in line.split():
+      yield(word, 1)
+    
+  def reducer(self, word, counts):
+    yield(word, sum(counts))
+
+if __name__ = '__main__':
+  MRWordCount.run()
+```
+- run script
+```
+python word_count.py input.txt
+```
